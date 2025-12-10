@@ -7,11 +7,16 @@ if (!isset($_SESSION["login"])) {
 }
 
 require 'function.php';
-require_once __DIR__ . '/vendor/autoload.php';  // load mPDF
+require_once __DIR__ . '/vendor/autoload.php'; // load mPDF
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
+// AMBIL DATA MAHASISWA + NAMA JURUSAN
+$mahasiswa = query("
+    SELECT mahasiswa.*, jurusan.nama_jurusan 
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+");
 
-// CSS untuk tabel PDF
+// CSS PDF
 $css = '
     table {
         border-collapse: collapse;
@@ -26,6 +31,7 @@ $css = '
     th, td {
         border: 1px solid #000;
         padding: 8px;
+        text-align: left;
     }
     img {
         border-radius: 4px;
@@ -43,7 +49,8 @@ $html = '
         <th>Nama</th>
         <th>Email</th>
         <th>Jurusan</th>
-    </tr>';
+    </tr>
+';
 
 $i = 1;
 foreach ($mahasiswa as $row) {
@@ -54,7 +61,7 @@ foreach ($mahasiswa as $row) {
         <td>' . $row["nrp"] . '</td>
         <td>' . $row["nama"] . '</td>
         <td>' . $row["email"] . '</td>
-        <td>' . $row["jurusan"] . '</td>
+        <td>' . ($row["nama_jurusan"] ?? '-') . '</td>
     </tr>';
 }
 
@@ -66,8 +73,7 @@ $mpdf = new \Mpdf\Mpdf([
     'default_font' => 'Arial'
 ]);
 
-$mpdf->WriteHTML($css, 1);   // CSS
-$mpdf->WriteHTML($html, 2);  // HTML
+$mpdf->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+$mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
 
 $mpdf->Output('daftar-mahasiswa.pdf', 'I');
-

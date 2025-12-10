@@ -7,11 +7,29 @@ if (!isset($_SESSION["login"])) {
 }
 
 require 'function.php';
-$mahasiswa = query("SELECT * FROM mahasiswa");
+
+// AMBIL DATA MAHASISWA + NAMA JURUSAN
+$mahasiswa = query("
+    SELECT mahasiswa.*, jurusan.nama_jurusan 
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+");
 
 // tombol cari ditekan  
 if (isset($_POST["cari"])) {
-    $mahasiswa = cari($_POST["keyword"]);
+    $keyword = $_POST["keyword"];
+
+    // pencarian ikut nama jurusan
+    $mahasiswa = query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        WHERE 
+            mahasiswa.nama LIKE '%$keyword%' OR
+            mahasiswa.nrp LIKE '%$keyword%' OR
+            mahasiswa.email LIKE '%$keyword%' OR
+            jurusan.nama_jurusan LIKE '%$keyword%'
+    ");
 }
 
 ?>
@@ -50,7 +68,6 @@ if (isset($_POST["cari"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 </head>
 
 <body class="container mt-4">
@@ -58,24 +75,24 @@ if (isset($_POST["cari"])) {
     <h1 class="mb-4">Daftar Mahasiswa</h1>
 
     <a href="tambah.php" class="btn btn-primary tambah">Tambah data mahasiswa</a>
-    <br></br>
+    <br><br>
 
-    <a href="logout.php" class="btn btn-danger logout ">Logout</a> | <a href="cetak.php" class="btn btn-success ms-2 cetak" target="_blank">Cetak!</a>
-    <br></br>
+    <a href="logout.php" class="btn btn-danger logout">Logout</a> 
+    | 
+    <a href="cetak.php" class="btn btn-success ms-2 cetak" target="_blank">Cetak!</a>
+
+    <br><br>
 
     <form action="" method="POST" class="d-flex mt-4 search" style="max-width: 400px;">
-
-        <input class="form-control me-2" type="text" name="keyword" size="44" autofocus placeholder="Masukkan keyword..." autocomplete="off" id="keyword">
+        <input class="form-control me-2" type="text" name="keyword" autofocus placeholder="Masukkan keyword..." autocomplete="off" id="keyword">
         <button class="btn btn-secondary ms-2" type="submit" name="cari" id="search">Cari</button>
-
         <img src="img/load.gif" class="load" id="load">
-
     </form>
 
     <br>
 
     <div class="table-responsive container mt-4" id="cont">
-        <table border="1" cellpadding="10"  class="table table-bordered table-striped" cellspacing="0">
+        <table border="1" cellpadding="10" class="table table-bordered table-striped" cellspacing="0">
 
             <tr>
                 <th>No.</th>
@@ -90,20 +107,16 @@ if (isset($_POST["cari"])) {
             <?php $i = 1; ?>
             <?php foreach ($mahasiswa as $row) : ?>
                 <tr>
-                    
                     <td><?= $i; ?></td>
-
-                    
-                    <td><img src="/phpdasar/pertemuan22(BOOTSTRAP)/img/<?= $row["gambar"]; ?>" width="50" class="img-thumbnail"></td>
+                    <td><img src="img/<?= $row["gambar"]; ?>" width="50" class="img-thumbnail"></td>
                     <td><?= $row["nrp"]; ?></td>
                     <td><?= $row["nama"]; ?></td>
                     <td><?= $row["email"]; ?></td>
-                    <td><?= $row["jurusan"]; ?></td>
+                    <td><?= $row["nama_jurusan"]; ?></td>
                     <td class="aksi">
                         <a href="ubah.php?id=<?= $row["id"]; ?>" class="btn btn-sm btn-warning">ubah</a> |
                         <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');" class="btn btn-sm btn-danger">hapus</a>
                     </td>
-
                 </tr>
                 <?php $i++; ?>
             <?php endforeach; ?>

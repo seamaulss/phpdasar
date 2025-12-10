@@ -27,6 +27,11 @@ if( isset($_POST["register"])) {
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .log {
+            color: white;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -63,7 +68,7 @@ if( isset($_POST["register"])) {
 
             <button type="submit" name="register"
                     class="btn btn-primary w-100">
-                Register
+                Register | <a href="login.php" class="log">Login</a>
             </button>
 
         </form>

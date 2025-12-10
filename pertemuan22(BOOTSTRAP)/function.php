@@ -23,24 +23,20 @@ function cari($keyword)
             nama LIKE '%$keyword%' OR
             nrp LIKE '%$keyword%' OR
             email LIKE '%$keyword%' OR
-            jurusan LIKE '%$keyword%'
-            ";
+            jurusan LIKE '%$keyword%'";  // << ini error
     return query($query);
 }
 
-// ubah data
-function ubah($data)
-{
-
+function ubah($data) {
     global $conn;
-    $id = ($data["id"]);
+    $id = $data["id"];
     $nama = htmlspecialchars($data["nama"]);
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
-    $jurusan = htmlspecialchars($data["jurusan"]);
+    $jurusan_id = htmlspecialchars($data["jurusan_id"]); // ganti jurusan -> jurusan_id
     $gambarLama = htmlspecialchars($data["gambarLama"]);
 
-    // cek apakah user pilih gambar baru atau tidak
+    // cek apakah user pilih gambar baru
     if ($_FILES['gambar']['error'] === 4) {
         $gambar = $gambarLama;
     } else {
@@ -51,24 +47,24 @@ function ubah($data)
                 nama = '$nama',
                 nrp = '$nrp',
                 email = '$email',
-                jurusan = '$jurusan',
+                jurusan_id = '$jurusan_id',
                 gambar = '$gambar'
-                WHERE id = $id
-            ";
-    mysqli_query($conn, $query);
+              WHERE id = $id";
 
+    mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
 
-// tambah data
-function  tambah($data)
-{
 
+// tambah data
+function tambah($data)
+{
     global $conn;
+
     $nama = htmlspecialchars($data["nama"]);
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
-    $jurusan = htmlspecialchars($data["jurusan"]);
+    $jurusan_id = htmlspecialchars($data["jurusan_id"]);
 
     // upload gambar
     $gambar = upload();
@@ -76,14 +72,15 @@ function  tambah($data)
         return false;
     }
 
-    $query = "INSERT INTO mahasiswa
-                VALUES
-                ('', '$nama', '$nrp', '$email', '$jurusan', '$gambar')
-            ";
+    $query = "INSERT INTO mahasiswa (nama, nrp, email, gambar, jurusan_id)
+          VALUES ('$nama', '$nrp', '$email', '$gambar', '$jurusan_id')";
+
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
+
+
 
 // upload gambar
 function upload()

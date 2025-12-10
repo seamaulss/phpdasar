@@ -1,18 +1,21 @@
-<?php 
+<?php
 session_start();
 
-if( !isset($_SESSION["login"]) ) {
+if (!isset($_SESSION["login"])) {
     header("Location: login.php");
     exit;
 }
 
 require 'function.php';
 
+// AMBIL DATA JURUSAN DARI DATABASE
+$jurusanList = query("SELECT * FROM jurusan");
+
 // cek apakah tombol tambah sudah ditekan
-if( isset($_POST["submit"]) ) {
+if (isset($_POST["submit"])) {
 
     // cek apakah data berhasil ditambahkan
-    if( tambah($_POST) > 0 ) {
+    if (tambah($_POST) > 0) {
         echo "
             <script>
                 alert('data berhasil ditambahkan!');
@@ -33,6 +36,7 @@ if( isset($_POST["submit"]) ) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,50 +45,59 @@ if( isset($_POST["submit"]) ) {
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-<div class="container py-5">
-    <div class="card shadow mx-auto" style="max-width: 600px;">
-        <div class="card-body">
-            <h3 class="text-center mb-4">Tambah Data Mahasiswa</h3>
+    <div class="container py-5">
+        <div class="card shadow mx-auto" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="text-center mb-4">Tambah Data Mahasiswa</h3>
 
-            <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
 
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama :</label>
-                    <input type="text" class="form-control" name="nama" id="nama" autocomplete="off" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama :</label>
+                        <input type="text" class="form-control" name="nama" id="nama" autocomplete="off" required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="nrp" class="form-label">NRP :</label>
-                    <input type="text" class="form-control" name="nrp" id="nrp" autocomplete="off" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="nrp" class="form-label">NRP :</label>
+                        <input type="text" class="form-control" name="nrp" id="nrp" autocomplete="off" required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email :</label>
-                    <input type="email" class="form-control" name="email" id="email" autocomplete="off" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email :</label>
+                        <input type="email" class="form-control" name="email" id="email" autocomplete="off" required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="jurusan" class="form-label">Jurusan :</label>
-                    <input type="text" class="form-control" name="jurusan" id="jurusan" autocomplete="off" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="jurusan" class="form-label">Jurusan</label>
+                        <select name="jurusan_id" id="jurusan" class="form-select" required>
+                            <option value="">-- Pilih Jurusan --</option>
+                            <?php foreach ($jurusanList as $j) : ?>
+                                <option value="<?= $j['id']; ?>">
+                                    <?= $j['nama_jurusan']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="gambar" class="form-label">Gambar :</label>
-                    <input type="file" class="form-control" name="gambar" id="gambar">
-                </div>
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar :</label>
+                        <input type="file" class="form-control" name="gambar" id="gambar">
+                    </div>
 
-                <button type="submit" name="submit" class="btn btn-primary w-100">
-                    Tambah
-                </button>
+                    <button type="submit" name="submit" class="btn btn-primary w-100">
+                        Tambah
+                    </button>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
