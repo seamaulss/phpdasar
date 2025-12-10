@@ -79,29 +79,30 @@ if (isset($_POST["cari"])) {
 
             <tr>
                 <th>No.</th>
-                <th class="aksi">Aksi</th>
                 <th>Gambar</th>
                 <th>NRP</th>
                 <th>Nama</th>
                 <th>Email</th>
                 <th>Jurusan</th>
+                <th class="aksi">Aksi</th>
             </tr>
 
             <?php $i = 1; ?>
             <?php foreach ($mahasiswa as $row) : ?>
                 <tr>
+                    
                     <td><?= $i; ?></td>
 
-                    <td class="aksi">
-                        <a href="ubah.php?id=<?= $row["id"]; ?>" class="btn btn-sm btn-warning">ubah</a> |
-                        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');" class="btn btn-sm btn-danger">hapus</a>
-                    </td>
-                    <td><img src="img/<?php echo $row["gambar"]; ?>"
-                            width="50" class="img-thumbnail"></td>
+                    
+                    <td><img src="/phpdasar/pertemuan22(BOOTSTRAP)/img/<?= $row["gambar"]; ?>" width="50" class="img-thumbnail"></td>
                     <td><?= $row["nrp"]; ?></td>
                     <td><?= $row["nama"]; ?></td>
                     <td><?= $row["email"]; ?></td>
                     <td><?= $row["jurusan"]; ?></td>
+                    <td class="aksi">
+                        <a href="ubah.php?id=<?= $row["id"]; ?>" class="btn btn-sm btn-warning">ubah</a> |
+                        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');" class="btn btn-sm btn-danger">hapus</a>
+                    </td>
 
                 </tr>
                 <?php $i++; ?>

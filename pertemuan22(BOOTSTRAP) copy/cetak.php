@@ -11,11 +11,31 @@ require_once __DIR__ . '/vendor/autoload.php';  // load mPDF
 
 $mahasiswa = query("SELECT * FROM mahasiswa");
 
-// mulai isi HTML untuk PDF
+// CSS untuk tabel PDF
+$css = '
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12px;
+    }
+    th {
+        background: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 8px;
+    }
+    img {
+        border-radius: 4px;
+    }
+';
+
 $html = '
-<h2 style="text-align:center;">DAFTAR MAHASISWA</h2>
-<br>
-<table border="1" cellspacing="0" cellpadding="8" width="100%">
+<h2 style="text-align:center; margin-bottom:10px;">DAFTAR MAHASISWA</h2>
+
+<table>
     <tr>
         <th>No.</th>
         <th>Gambar</th>
@@ -29,7 +49,7 @@ $i = 1;
 foreach ($mahasiswa as $row) {
     $html .= '
     <tr>
-        <td>' . $i++ . '</td>
+        <td style="text-align:center;">' . $i++ . '</td>
         <td><img src="img/' . $row["gambar"] . '" width="50"></td>
         <td>' . $row["nrp"] . '</td>
         <td>' . $row["nama"] . '</td>
@@ -40,11 +60,14 @@ foreach ($mahasiswa as $row) {
 
 $html .= '</table>';
 
-// buat instance mPDF dan render PDF
+// buat PDF
 $mpdf = new \Mpdf\Mpdf([
     'default_font_size' => 10,
     'default_font' => 'Arial'
 ]);
 
-$mpdf->WriteHTML($html);
-$mpdf->Output('daftar-mahasiswa.pdf', 'I');  // I = inline (tampil di browser)
+$mpdf->WriteHTML($css, 1);   // CSS
+$mpdf->WriteHTML($html, 2);  // HTML
+
+$mpdf->Output('daftar-mahasiswa.pdf', 'I');
+

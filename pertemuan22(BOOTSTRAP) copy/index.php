@@ -90,6 +90,7 @@ if (isset($_POST["cari"])) {
             <?php $i = 1; ?>
             <?php foreach ($mahasiswa as $row) : ?>
                 <tr>
+                    
                     <td><?= $i; ?></td>
 
                     <td class="aksi">

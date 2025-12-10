@@ -62,36 +62,45 @@ if( isset($_SESSION["login"]) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    
-    <h1>Halaman Login</h1>
+<body class="bg-light">
 
-    <?php if( isset($error) ) : ?>
-        <p style="color: red; font-style: italic;">Username / Password salah!</p>
-    <?php endif; ?>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
 
-    <form action="" method="post">
+        <h3 class="text-center mb-4">Login</h3>
 
-        <ul>
-            <li>
-                <label for="username">Username : </label>
-                <input type="text" name="username" id="username" autocomplete="off">
-            </li>
-            <li>
-                <label for="password">Password : </label>
-                <input type="password" name="password" id="password">
-            </li>
-            <li>
-                <label for="remember">Remember Me</label>
-                <input type="checkbox" name="remember" id="remember">
-            </li>
-            <li>
-                <button type="submit" name="login">Login</button>
-            </li>
-        </ul>
+        <?php if( isset($error) ) : ?>
+            <div class="alert alert-danger py-2">Username / Password salah!</div>
+        <?php endif; ?>
 
-    </form>
+        <form action="" method="post">
 
+            <div class="mb-3">
+                <label for="username" class="form-label">Username :</label>
+                <input type="text" name="username" id="username" class="form-control" autocomplete="off">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password :</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                <label for="remember" class="form-check-label">Remember Me</label>
+            </div>
+
+            <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
+
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
