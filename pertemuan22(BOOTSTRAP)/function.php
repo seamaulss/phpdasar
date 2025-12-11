@@ -18,16 +18,21 @@ function query($query)
 // cari data mahasiswa berdasarkan keyword
 function cari($keyword)
 {
-    $query = "SELECT * FROM mahasiswa
-                WHERE
-            nama LIKE '%$keyword%' OR
-            nrp LIKE '%$keyword%' OR
-            email LIKE '%$keyword%' OR
-            jurusan LIKE '%$keyword%'";  // << ini error
+    $query = "SELECT mahasiswa.*, jurusan.nama_jurusan
+              FROM mahasiswa
+              LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+              WHERE 
+                    mahasiswa.nama LIKE '%$keyword%' OR
+                    mahasiswa.nrp LIKE '%$keyword%' OR
+                    mahasiswa.email LIKE '%$keyword%' OR
+                    jurusan.nama_jurusan LIKE '%$keyword%'";
+
     return query($query);
 }
 
-function ubah($data) {
+
+function ubah($data)
+{
     global $conn;
     $id = $data["id"];
     $nama = htmlspecialchars($data["nama"]);
@@ -55,6 +60,23 @@ function ubah($data) {
     return mysqli_affected_rows($conn);
 }
 
+function ubahjurusan($data)
+{
+    global $conn;
+
+    $id = intval($data["id"]);
+    $nama_jurusan = htmlspecialchars($data["nama_jurusan"]);
+
+    $query = "UPDATE jurusan SET
+                nama_jurusan = '$nama_jurusan'
+              WHERE id = $id";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
 
 // tambah data
 function tambah($data)
@@ -80,7 +102,16 @@ function tambah($data)
     return mysqli_affected_rows($conn);
 }
 
+function tambahjurusan($data)
+{
+    global $conn;
+    $nama_jurusan = htmlspecialchars($data["nama_jurusan"]);
 
+    $query = "INSERT INTO jurusan (nama_jurusan) VALUES ('$nama_jurusan')";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
 
 // upload gambar
 function upload()
@@ -135,6 +166,22 @@ function hapus($id)
     mysqli_query($conn, "DELETE FROM mahasiswa WHERE id = $id");
     return mysqli_affected_rows($conn);
 }
+
+function hapusjurusan($id)
+{
+    global $conn;
+
+    // Cek apakah jurusan sedang dipakai mahasiswa
+    $cek = query("SELECT * FROM mahasiswa WHERE jurusan_id = $id");
+    if (count($cek) > 0) {
+        // Tidak boleh hapus (mencegah error foreign key)
+        return 0;
+    }
+
+    mysqli_query($conn, "DELETE FROM jurusan WHERE id = $id");
+    return mysqli_affected_rows($conn);
+}
+
 
 
 // registrasi user baru

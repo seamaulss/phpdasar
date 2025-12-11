@@ -75,6 +75,7 @@ if (isset($_POST["cari"])) {
     <h1 class="mb-4">Daftar Mahasiswa</h1>
 
     <a href="tambah.php" class="btn btn-primary tambah">Tambah data mahasiswa</a>
+    <a href="jurusan.php" class="btn btn-info ms-2">Kelola Jurusan</a>
     <br><br>
 
     <a href="logout.php" class="btn btn-danger logout">Logout</a> 
