@@ -1,44 +1,80 @@
+<!-- File ini menerima keyword dari AJAX.
+Query database mahasiswa sesuai keyword.
+Menghasilkan tabel HTML dengan hasil pencarian.
+Tabel ini dikembalikan sebagai response AJAX, lalu di-inject ke halaman admin tanpa reload. -->
+
 <!-- cari data mahasiswa berdasarkan keyword -->
-<?php 
+<?php
+
+usleep(500000); // delay 0.5 detik
+
 require '../function.php';
-$keyword = $_GET["keyword"];
-$query = "SELECT * FROM mahasiswa
-            WHERE
-            nama LIKE '%$keyword%' OR
-            nrp LIKE '%$keyword%' OR
-            email LIKE '%$keyword%' OR
-            jurusan LIKE '%$keyword%'
-        ";
+$keyword = isset($_GET["keyword"]) ? $_GET["keyword"] : "";
+
+// query menggunakan JOIN agar nama jurusan muncul
+$query = "
+    SELECT mahasiswa.*, jurusan.nama_jurusan
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+    WHERE 
+        mahasiswa.nama LIKE '%$keyword%' OR
+        mahasiswa.nrp LIKE '%$keyword%' OR
+        mahasiswa.email LIKE '%$keyword%' OR
+        jurusan.nama_jurusan LIKE '%$keyword%'
+";
 $mahasiswa = query($query);
+
 ?>
-<table border="1" cellpadding="10" cellspacing="0">
 
-<tr>
-    <th>No.</th>
-    <th>Aksi</th>
-    <th>Gambar</th>
-    <th>NRP</th>
-    <th>Nama</th>
-    <th>Email</th>
-    <th>Jurusan</th>
-</tr>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
 
-<?php $i = 1; ?>
-<?php foreach( $mahasiswa as $row ) : ?>
-<tr>
-    <td><?= $i; ?></td>
-    <td>
-        <a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a> | 
-        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');" >hapus</a>
-    </td>
-    <td><img src="img/<?php echo $row["gambar"]; ?>"
-    width="50"></td>
-    <td><?= $row["nrp"]; ?></td>
-    <td><?= $row["nama"]; ?></td>
-    <td><?= $row["email"]; ?></td>
-    <td><?= $row["jurusan"]; ?></td>
-</tr>
-<?php $i++; ?>
-<?php endforeach; ?>
+        <thead class="table-dark">
+            <tr>
+                <th>No.</th>
+                <th>Gambar</th>
+                <th>NRP</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Jurusan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
 
-</table>
+        <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($mahasiswa as $row) : ?>
+                <tr>
+                    <td><?= $i; ?></td>
+
+                    <td>
+                        <img
+                            src="/phpdasar/pertemuan22(BOOTSTRAP)/img/<?= $row['gambar']; ?>"
+                            width="50"
+                            class="img-thumbnail">
+                    </td>
+
+                    <td><?= $row["nrp"]; ?></td>
+                    <td><?= $row["nama"]; ?></td>
+                    <td><?= $row["email"]; ?></td>
+                    <td><?= $row["nama_jurusan"]; ?></td>
+
+                    <td>
+                        <a href="ubah.php?id=<?= $row['id']; ?>"
+                            class="btn btn-warning btn-sm me-1">
+                            Ubah
+                        </a>
+
+                        <a href="hapus.php?id=<?= $row['id']; ?>"
+                            onclick="return confirm('yakin?');"
+                            class="btn btn-danger btn-sm">
+                            Hapus
+                        </a>
+                    </td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        </tbody>
+
+    </table>
+</div>

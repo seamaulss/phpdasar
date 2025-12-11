@@ -1,3 +1,16 @@
+/*
+User mengetik di input.
+
+GIF loading muncul.
+
+Script melakukan request Ajax ke server untuk mencari mahasiswa sesuai keyword.
+
+Hasil pencarian ditampilkan tanpa reload halaman.
+
+Loading GIF disembunyikan setelah data muncul.
+*/
+
+
 $(document).ready(function() {
 
   // sembunyikan tombol cari

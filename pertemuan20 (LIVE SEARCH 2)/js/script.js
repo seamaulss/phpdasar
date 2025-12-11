@@ -1,3 +1,13 @@
+/*
+Pencarian mahasiswa langsung saat mengetik, tanpa reload halaman.
+
+Tombol Cari disembunyikan karena sudah otomatis.
+
+Ada indikator loading untuk memberi tahu user bahwa data sedang diproses.
+
+Memanfaatkan AJAX ($.get) untuk mengambil data dari server dan menampilkan di tabel.
+*/
+
 $(document).ready(function() {
 
   // sembunyikan tombol cari

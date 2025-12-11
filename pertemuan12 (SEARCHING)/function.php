@@ -1,3 +1,6 @@
+<!-- belajar membuat fungsi-fungsi PHP untuk CRUD 
+(Create, Read, Update, Delete) dan pencarian di database -->
+
 <?php
 
 // koneksi ke database

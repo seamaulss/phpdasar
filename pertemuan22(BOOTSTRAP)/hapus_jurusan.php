@@ -1,3 +1,13 @@
+<!-- Halaman ini untuk menghapus jurusan dari database.
+
+Hanya admin yang login bisa mengaksesnya.
+
+ID jurusan diambil dari URL, divalidasi.
+
+Fungsi hapusjurusan() memastikan jurusan tidak sedang dipakai mahasiswa.
+
+Alert muncul untuk memberi feedback, lalu diarahkan ke daftar jurusan. -->
+
 <?php
 session_start();
 

@@ -1,3 +1,15 @@
+<!-- function.php berisi semua fungsi untuk CRUD Mahasiswa:
+
+Tambah (tambah), ubah (ubah), hapus (hapus), tampil (query), cari (cari).
+
+Ada upload gambar dengan validasi file.
+
+Ada fungsi registrasi user dengan validasi username & password.
+
+Semua query dijalankan menggunakan MySQLi, hasil dikembalikan sebagai array.
+
+Fungsi htmlspecialchars digunakan untuk menghindari XSS dari input pengguna. -->
+
 <?php
 
 // koneksi ke database

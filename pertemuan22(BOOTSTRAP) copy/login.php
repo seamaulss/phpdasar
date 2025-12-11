@@ -94,6 +94,9 @@ if( isset($_SESSION["login"]) ) {
                 <label for="remember" class="form-check-label">Remember Me</label>
             </div>
 
+            <a href="regist.php">Belum punya akun?</a>  
+            <br><br>
+
             <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
 
         </form>

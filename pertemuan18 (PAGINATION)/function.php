@@ -1,3 +1,10 @@
+<!-- CRUD dasar: tambah(), ubah(), hapus(), query().
+Pencarian + Pagination: fungsi cari().
+Upload gambar aman: validasi ekstensi, ukuran, dan nama unik.
+Keamanan input: htmlspecialchars dan password_hash.
+Registrasi user: cek username, password, dan hash password.
+Modularisasi kode: semua fungsi database terpisah dari halaman utama. -->
+
 <?php
 
 // koneksi ke database

@@ -1,3 +1,10 @@
+<!-- Belajar menghubungkan PHP dengan MySQL.
+Membuat sistem CRUD untuk data mahasiswa.
+Mengelola upload file/gambar.
+Membuat pencarian/filter data.
+Membuat registrasi user dengan keamanan dasar (password hash).
+Menggunakan fungsi PHP untuk modularisasi kode agar lebih rapi. -->
+
 <?php
 
 // koneksi ke database

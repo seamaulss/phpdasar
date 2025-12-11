@@ -1,3 +1,10 @@
+<!-- Koneksi database + query helper (query()).
+CRUD data mahasiswa:
+tambah(), ubah(), hapus(), cari().
+Upload gambar dengan validasi (upload()).
+Registrasi user baru dengan keamanan password (register()).
+Semua fungsi siap dipanggil di halaman admin seperti index.php, tambah.php, ubah.php. -->
+
 <?php
 
 // koneksi ke database

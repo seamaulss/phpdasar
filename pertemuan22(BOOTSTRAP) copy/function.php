@@ -18,29 +18,30 @@ function query($query)
 // cari data mahasiswa berdasarkan keyword
 function cari($keyword)
 {
-    $query = "SELECT * FROM mahasiswa
-                WHERE
-            nama LIKE '%$keyword%' OR
-            nrp LIKE '%$keyword%' OR
-            email LIKE '%$keyword%' OR
-            jurusan LIKE '%$keyword%'
-            ";
+    $query = "SELECT mahasiswa.*, jurusan.nama_jurusan
+              FROM mahasiswa
+              LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+              WHERE 
+                    mahasiswa.nama LIKE '%$keyword%' OR
+                    mahasiswa.nrp LIKE '%$keyword%' OR
+                    mahasiswa.email LIKE '%$keyword%' OR
+                    jurusan.nama_jurusan LIKE '%$keyword%'";
+
     return query($query);
 }
 
-// ubah data
+
 function ubah($data)
 {
-
     global $conn;
-    $id = ($data["id"]);
+    $id = $data["id"];
     $nama = htmlspecialchars($data["nama"]);
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
-    $jurusan = htmlspecialchars($data["jurusan"]);
+    $jurusan_id = htmlspecialchars($data["jurusan_id"]); // ganti jurusan -> jurusan_id
     $gambarLama = htmlspecialchars($data["gambarLama"]);
 
-    // cek apakah user pilih gambar baru atau tidak
+    // cek apakah user pilih gambar baru
     if ($_FILES['gambar']['error'] === 4) {
         $gambar = $gambarLama;
     } else {
@@ -51,24 +52,41 @@ function ubah($data)
                 nama = '$nama',
                 nrp = '$nrp',
                 email = '$email',
-                jurusan = '$jurusan',
+                jurusan_id = '$jurusan_id',
                 gambar = '$gambar'
-                WHERE id = $id
-            ";
+              WHERE id = $id";
+
+    mysqli_query($conn, $query);
+    return mysqli_affected_rows($conn);
+}
+
+function ubahjurusan($data)
+{
+    global $conn;
+
+    $id = intval($data["id"]);
+    $nama_jurusan = htmlspecialchars($data["nama_jurusan"]);
+
+    $query = "UPDATE jurusan SET
+                nama_jurusan = '$nama_jurusan'
+              WHERE id = $id";
+
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
 
-// tambah data
-function  tambah($data)
-{
 
+
+// tambah data
+function tambah($data)
+{
     global $conn;
+
     $nama = htmlspecialchars($data["nama"]);
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
-    $jurusan = htmlspecialchars($data["jurusan"]);
+    $jurusan_id = htmlspecialchars($data["jurusan_id"]);
 
     // upload gambar
     $gambar = upload();
@@ -76,10 +94,20 @@ function  tambah($data)
         return false;
     }
 
-    $query = "INSERT INTO mahasiswa
-                VALUES
-                ('', '$nama', '$nrp', '$email', '$jurusan', '$gambar')
-            ";
+    $query = "INSERT INTO mahasiswa (nama, nrp, email, gambar, jurusan_id)
+          VALUES ('$nama', '$nrp', '$email', '$gambar', '$jurusan_id')";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function tambahjurusan($data)
+{
+    global $conn;
+    $nama_jurusan = htmlspecialchars($data["nama_jurusan"]);
+
+    $query = "INSERT INTO jurusan (nama_jurusan) VALUES ('$nama_jurusan')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -138,6 +166,22 @@ function hapus($id)
     mysqli_query($conn, "DELETE FROM mahasiswa WHERE id = $id");
     return mysqli_affected_rows($conn);
 }
+
+function hapusjurusan($id)
+{
+    global $conn;
+
+    // Cek apakah jurusan sedang dipakai mahasiswa
+    $cek = query("SELECT * FROM mahasiswa WHERE jurusan_id = $id");
+    if (count($cek) > 0) {
+        // Tidak boleh hapus (mencegah error foreign key)
+        return 0;
+    }
+
+    mysqli_query($conn, "DELETE FROM jurusan WHERE id = $id");
+    return mysqli_affected_rows($conn);
+}
+
 
 
 // registrasi user baru

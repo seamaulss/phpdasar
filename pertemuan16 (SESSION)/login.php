@@ -1,3 +1,9 @@
+<!-- Bagaimana session bekerja untuk login dan logout.
+Mengambil data dari form dan memvalidasi ke database.
+Menggunakan password_verify() untuk keamanan password.
+Menangani error saat login gagal.
+Membuat form login sederhana di HTML. -->
+
 <?php
 session_start();
 

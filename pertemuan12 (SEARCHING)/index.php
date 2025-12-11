@@ -1,3 +1,8 @@
+<!-- Menampilkan data dari database,
+Mencari data dengan keyword,
+Menambahkan fitur CRUD (tambah, ubah, hapus),
+Menghubungkan PHP dengan MySQL, dan menampilkan data di HTML. -->
+
 <?php 
 require 'function.php';
 
@@ -55,7 +60,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

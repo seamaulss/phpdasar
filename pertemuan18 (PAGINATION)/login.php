@@ -1,3 +1,18 @@
+<!-- Session vs Cookie
+Session: Login aktif saat browser terbuka.
+Cookie: “Remember Me” → tetap login walau browser ditutup.
+Keamanan
+Password harus di-hash (password_hash di registrasi + password_verify di login).
+Cookie menggunakan hash('sha256', username) untuk mengurangi risiko pencurian password.
+Error Handling
+Memberi feedback kalau username/password salah ($error = true).
+Redirect
+Mengarahkan user yang sudah login ke halaman admin.
+Menghindari login ulang yang tidak perlu.
+Limitasi
+Cookie saat ini hanya berlaku 60 detik (waktu time() + 60).
+Untuk aplikasi nyata, biasanya beberapa hari/minggu, bukan detik. -->
+
 <?php
 session_start();
 require 'function.php';

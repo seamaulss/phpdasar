@@ -1,3 +1,13 @@
+<!-- Halaman ini membuat laporan PDF daftar mahasiswa.
+
+Data mahasiswa diambil dari database (query("SELECT * FROM mahasiswa")).
+
+Tabel HTML berisi gambar, NRP, nama, email, jurusan mahasiswa.
+
+mPDF digunakan untuk mengubah HTML menjadi PDF.
+
+PDF ditampilkan langsung di browser, bisa diunduh dari sana. -->
+
 <?php
 session_start();
 

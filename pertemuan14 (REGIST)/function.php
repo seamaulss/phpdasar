@@ -1,3 +1,9 @@
+<!-- Belajar CRUD database (Create, Read, Update, Delete).
+Upload file dan validasi gambar.
+Manipulasi data aman dengan htmlspecialchars() dan password_hash().
+Membuat fungsi modular untuk mengurangi pengulangan kode.
+Membuat registrasi user baru dengan validasi keamanan dasar. -->
+
 <?php
 
 // koneksi ke database

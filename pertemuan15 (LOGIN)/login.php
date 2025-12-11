@@ -1,3 +1,9 @@
+<!-- Form input dan POST data.
+Query database untuk login user.
+Verifikasi password dengan password_verify().
+Membuat sistem autentikasi sederhana.
+Memberikan feedback error kepada user. -->
+
 <?php
 require 'function.php';
 

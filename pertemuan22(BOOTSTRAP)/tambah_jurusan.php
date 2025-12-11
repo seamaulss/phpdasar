@@ -1,3 +1,13 @@
+<!-- Halaman ini untuk menambah jurusan baru di database.
+
+Admin harus login untuk mengaksesnya.
+
+Data dikirim ke fungsi tambahjurusan() yang akan memasukkan ke tabel jurusan.
+
+Setelah berhasil → alert & redirect ke daftar jurusan.
+
+Tampilan sederhana menggunakan Bootstrap. -->
+
 <?php
 session_start();
 

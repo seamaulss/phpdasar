@@ -1,3 +1,8 @@
+<!-- Menyediakan semua fungsi CRUD mahasiswa: tambah, ubah, hapus, cari.
+Menangani upload gambar untuk mahasiswa.
+Menyediakan fungsi register user baru dengan validasi dan enkripsi password.
+Menggunakan koneksi database global ($conn) dan query aman untuk eksekusi SQL. -->
+
 <?php
 
 // koneksi ke database

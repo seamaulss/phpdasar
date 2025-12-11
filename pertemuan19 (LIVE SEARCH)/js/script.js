@@ -1,3 +1,10 @@
+/*
+Membuat live search: tabel mahasiswa diperbarui otomatis saat mengetik.
+Memakai AJAX untuk ambil data dari server tanpa reload halaman.
+Target update adalah div .container.
+Mengirim keyword ke ajax/mahasiswa.php → server yang proses query.
+*/
+
 // ambil elemen2 yang dibutuhkan
 var keyword = document.getElementById('keyword');
 var search = document.getElementById('search');

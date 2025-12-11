@@ -1,3 +1,10 @@
+<!-- membuat halaman admin untuk mengelola data mahasiswa -->
+ <!-- Menampilkan data dari database (Read)
+Menambah data (Create)
+Mengubah data (Update)
+Menghapus data (Delete) -->
+
+
 <?php 
 require 'function.php';
 
@@ -43,7 +50,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

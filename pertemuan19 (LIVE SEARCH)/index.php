@@ -1,3 +1,9 @@
+<!-- Hanya user yang login bisa mengakses halaman ini.
+Menampilkan daftar mahasiswa dari database.
+Bisa mencari, menambah, mengubah, dan menghapus data mahasiswa.
+Tampilan data menggunakan tabel HTML.
+Ada dukungan pencarian keyword dan logout. -->
+
 <?php 
 session_start();
 
@@ -67,7 +73,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

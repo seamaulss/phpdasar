@@ -1,3 +1,9 @@
+<!-- Belajar CRUD dasar di PHP (Create, Read, Update, Delete).
+Menampilkan data dari database MySQL ke halaman web.
+Membuat form pencarian dan memfilter data.
+Menggunakan PHP & HTML campuran untuk menampilkan data dinamis.
+Praktik konfirmasi hapus dan menampilkan gambar dari database. -->
+
 <?php 
 require 'function.php';
 
@@ -55,7 +61,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

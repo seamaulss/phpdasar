@@ -1,3 +1,13 @@
+<!-- Halaman ini mengubah data jurusan di database.
+
+Hanya bisa diakses oleh admin yang login.
+
+Mengambil id dari URL, menampilkan data jurusan di form.
+
+Saat submit → panggil fungsi ubahjurusan() dari function.php.
+
+Ada tombol Kembali untuk kembali ke daftar jurusan. -->
+
 <?php
 session_start();
 if (!isset($_SESSION["login"])) {

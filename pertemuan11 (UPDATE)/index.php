@@ -1,3 +1,13 @@
+<!-- Belajar menampilkan data dari database di PHP menggunakan POST/GET.
+Mengenal looping foreach untuk tabel data.
+Memahami konsep CRUD:
+Create → tambah.php
+Read → halaman ini
+Update → ubah.php
+Delete → hapus.php
+Latihan ini juga mengajarkan menghubungkan database, menampilkan gambar, dan membuat aksi link. -->
+
+
 <?php 
 require 'function.php';
 
@@ -45,7 +55,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

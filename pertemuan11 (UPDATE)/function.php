@@ -1,3 +1,13 @@
+<!-- file fungsi untuk CRUD (Create, Read, Update, Delete) data mahasiswa di database. -->
+<!-- belajar membuat fungsi php untuk crud database.
+memahami tangkap data dari form ($data) dan simpan ke database.
+mengamankan input dengan htmlspecialchars untuk mencegah bug atau injeksi HTML.
+hubungan dengan latihan sebelumnya:
+halaman admin → query() untuk menampilkan data.
+form tambah → tambah().
+form ubah → ubah().
+hapus link → hapus(). -->
+
 <?php
 
 // koneksi ke database

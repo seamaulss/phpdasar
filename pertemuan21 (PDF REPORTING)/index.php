@@ -1,3 +1,19 @@
+<!-- Halaman ini adalah Admin Page untuk mengelola data mahasiswa.
+
+Hanya bisa diakses oleh user yang sudah login.
+
+Menampilkan:
+
+Daftar mahasiswa dari database.
+
+Fitur tambah, ubah, hapus, cetak data.
+
+Form pencarian untuk filter data.
+
+Ada fitur animasi loading saat pencarian.
+
+Tombol tertentu hilang saat mencetak halaman (print). -->
+
 <?php
 session_start();
 
@@ -101,7 +117,7 @@ if (isset($_POST["cari"])) {
                     <td><?= $row["nrp"]; ?></td>
                     <td><?= $row["nama"]; ?></td>
                     <td><?= $row["email"]; ?></td>
-                    <td><?= $row["jurusan"]; ?></td>
+                    <td><?= $row["jurusan_id"]; ?></td>
 
                 </tr>
                 <?php $i++; ?>

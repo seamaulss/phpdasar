@@ -1,3 +1,13 @@
+<!-- CRUD Mahasiswa: Create, Read, Update, Delete.
+Validasi Input & Keamanan:
+htmlspecialchars() untuk mencegah XSS.
+password_hash() untuk keamanan password.
+Upload File dengan validasi.
+Query dinamis dan fungsi pencarian.
+Registrasi user baru dengan cek username unik dan konfirmasi password.
+File ini menjadi pusat logika backend, 
+sehingga halaman lain (login, index, tambah, ubah, hapus) cukup memanggil fungsi-fungsi ini. -->
+
 <?php
 
 // koneksi ke database

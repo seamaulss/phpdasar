@@ -1,3 +1,8 @@
+<!-- Menggunakan session untuk menjaga login user.
+Menggunakan cookie untuk fitur “Remember Me”.
+Mengambil data dari database untuk cek username & password.
+Menampilkan form login dengan validasi. -->
+
 <?php
 session_start();
 require 'function.php';

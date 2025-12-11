@@ -1,4 +1,11 @@
+<!-- Proteksi halaman admin menggunakan session.
+Menampilkan data dari database dengan tabel HTML.
+CRUD (Create, Read, Update, Delete): menambahkan, mengubah, menghapus, dan membaca data mahasiswa.
+Pencarian data menggunakan form input keyword.
+Interaksi user-friendly: tombol hapus dengan konfirmasi, menampilkan gambar, dan tombol navigasi. -->
+
 <?php 
+// keamanan halaman
 session_start();
 
 if( !isset($_SESSION["login"]) ) {
@@ -65,7 +72,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

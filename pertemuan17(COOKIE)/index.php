@@ -1,3 +1,6 @@
+<!-- belajar membuat halaman admin CRUD sederhana dengan PHP & MySQL, 
+termasuk login/session, menampilkan data dari database, pencarian data, dan aksi tambah/ubah/hapus. -->
+
 <?php 
 session_start();
 
@@ -65,7 +68,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

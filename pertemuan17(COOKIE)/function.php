@@ -1,3 +1,10 @@
+<!-- Menangani CRUD mahasiswa (tambah, ubah, hapus, tampil).
+Menangani pencarian mahasiswa.
+Menangani upload gambar.
+Menangani registrasi user.
+Intinya, semua operasi database dan proses data di aplikasi PHP ini dikendalikan melalui 
+fungsi-fungsi di sini. -->
+
 <?php
 
 // koneksi ke database

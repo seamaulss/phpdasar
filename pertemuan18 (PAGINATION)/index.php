@@ -1,3 +1,11 @@
+<!-- Session & login → halaman admin aman.
+Modularisasi → gunakan file function.php untuk query/database.
+Pagination → bagi data banyak per halaman, jangan tampilkan semua sekaligus.
+Pencarian → gabungkan dengan pagination, handling keyword.
+Navigasi halaman → tombol nomor, sebelumnya/berikutnya.
+CRUD & tampilan tabel → menampilkan data, dan aksi ubah/hapus.
+Praktik PHP & MySQL dasar → query, loop, conditional, GET/POST. -->
+
 <?php 
 session_start();
 
@@ -100,7 +108,7 @@ if( isset($_POST["cari"]) && $_POST["keyword"] !== "" ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

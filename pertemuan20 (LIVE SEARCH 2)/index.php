@@ -1,3 +1,9 @@
+<!-- Halaman ini hanya bisa diakses jika user login.
+Menampilkan daftar mahasiswa dari database.
+Ada fitur tambah, ubah, hapus, dan cari mahasiswa.
+Pencarian bisa dilakukan live dengan bantuan Ajax.
+Data ditampilkan dalam tabel lengkap dengan foto dan informasi mahasiswa. -->
+
 <?php
 session_start();
 
@@ -88,7 +94,7 @@ if (isset($_POST["cari"])) {
                     <td><?= $row["nrp"]; ?></td>
                     <td><?= $row["nama"]; ?></td>
                     <td><?= $row["email"]; ?></td>
-                    <td><?= $row["jurusan"]; ?></td>
+                    <td><?= $row["jurusan_id"]; ?></td>
                 </tr>
                 <?php $i++; ?>
             <?php endforeach; ?>

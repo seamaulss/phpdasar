@@ -1,7 +1,14 @@
+<!-- Membuat halaman register user baru.
+Mengambil input form menggunakan $_POST.
+Membuat validasi password dan konfirmasi password.
+Menyimpan data user ke database dengan fungsi terpisah (register()).
+Memberikan feedback ke user melalui alert jika berhasil atau gagal. -->
+
 <?php
 
 require 'function.php';
 
+// validasi username password/konfirm password
 if( isset($_POST["register"])) {
 
     if( register($_POST) > 0 ) {

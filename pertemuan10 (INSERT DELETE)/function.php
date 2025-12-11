@@ -1,3 +1,9 @@
+<!-- menyimpan fungsi fungsi yang dibutuhkan -->
+<!-- membuat fungsi PHP untuk mengelola data mahasiswa di database, yaitu:
+query() → mengambil data (Read)
+tambah() → menambahkan data (Create)
+hapus() → menghapus data (Delete) -->
+
 <?php
 
 // koneksi ke database

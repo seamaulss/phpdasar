@@ -1,3 +1,9 @@
+<!-- Cara membuat fungsi PHP untuk CRUD.
+Cara mengamankan input user (htmlspecialchars).
+Cara mengupload dan memvalidasi gambar.
+Cara menghubungkan PHP dengan database MySQL.
+Latihan array associative saat menampilkan data dari database. -->
+
 <?php
 
 // koneksi ke database

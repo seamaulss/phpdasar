@@ -1,3 +1,12 @@
+<!-- membuat halaman admin sederhana untuk mengelola data mahasiswa dengan PHP dan MySQL, meliputi:
+Koneksi database
+Menampilkan data dalam tabel
+Mencari/filter data
+CRUD (tambah, ubah, hapus)
+Menampilkan gambar
+Form dan interaksi user -->
+
+
 <?php 
 require 'function.php';
 
@@ -58,7 +67,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan"]; ?></td>
+        <td><?= $row["jurusan_id"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

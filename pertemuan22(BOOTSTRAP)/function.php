@@ -1,3 +1,13 @@
+<!-- function.php berisi semua fungsi CRUD untuk mahasiswa dan jurusan.
+
+Menangani upload gambar, validasi input, dan keamanan password.
+
+Ada fungsi cari untuk keyword search mahasiswa.
+
+Fungsi hapus jurusan aman dari konflik dengan mahasiswa.
+
+Fungsi register untuk membuat akun baru. -->
+
 <?php
 
 // koneksi ke database
