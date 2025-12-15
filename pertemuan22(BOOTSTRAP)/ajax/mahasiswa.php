@@ -54,7 +54,7 @@ $mahasiswa = query($query);
                     <td>
                         <img
                             src="/phpdasar/pertemuan22(BOOTSTRAP)/img/<?= $row['gambar']; ?>"
-                            width="50"
+                            width="100"
                             class="img-thumbnail">
                     </td>
 

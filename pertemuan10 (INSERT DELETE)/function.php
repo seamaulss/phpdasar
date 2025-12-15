@@ -25,7 +25,7 @@ function  tambah($data) {
     $nama = $data["nama"];
     $nrp = $data["nrp"];
     $email = $data["email"];
-    $jurusan = $data["jurusan"];    
+    $jurusan = $data["jurusan_id"];    
     $gambar = $data["gambar"];
 
     $query = "INSERT INTO mahasiswa

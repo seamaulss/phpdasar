@@ -21,21 +21,21 @@ $mahasiswa = [
             "nrp" => "758475", 
             "jurusan" => "Teknik Informatika",
             "gmail" => "maullbusinesman@gmail.com",
-            "gambar" => "cat2.jpg"
+            "gambar" => "69397ad55353b.jpg"
     ],
     [
             "nama" => "Napis", 
             "nrp" => "846542", 
             "jurusan" => "Teknik Farmasi",
             "gmail" => "napiss@gmail.com",
-            "gambar" => "cat1.jpg"
+            "gambar" => "69397d1b4fc70.jpg"
     ],
     [
             "nama" => "Adam", 
             "nrp" => "4574857", 
             "jurusan" => "Teknik Perikanan",
             "gmail" => "adamm@gmail.com",
-            "gambar" => "cat1.jpg"
+            "gambar" => "693add361c996.jpeg"
     ]
     ];
 ?>

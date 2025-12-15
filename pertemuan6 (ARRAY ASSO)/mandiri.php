@@ -9,13 +9,13 @@ $karyawan = [
         "nama" => "Meong",
         "alamat" => "abc",
         "no telp" => "7584758784",
-        "gambar" => "cat2.jpg"
+        "gambar" => "69397ad55353b.jpg"
     ],
     [
         "nama" => "Andi",
         "alamat" => "bcd",
         "no telp" => "847587",
-        "gambar" => "cat1.jpg"
+        "gambar" => "69397f3616f87.jpg"
     ]
 ];
 ?>

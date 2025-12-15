@@ -19,17 +19,35 @@ if (!isset($_SESSION["login"])) {
 require 'function.php';
 
 if (isset($_POST["submit"])) {
-    if (tambahjurusan($_POST) > 0) {
+    $nama_jurusan = trim($_POST["nama_jurusan"]);
+
+    // Cek apakah jurusan sudah ada
+    $cek = mysqli_query($conn, "SELECT * FROM jurusan WHERE nama_jurusan = '$nama_jurusan'");
+    if (mysqli_num_rows($cek) > 0) {
+        echo "<script>
+                alert('Jurusan \"$nama_jurusan\" sudah ada!');
+                document.location.href = 'tambah_jurusan.php';
+              </script>";
+        exit;
+    }
+
+    // Tambah jurusan baru
+    mysqli_query($conn, "INSERT INTO jurusan (nama_jurusan) VALUES ('$nama_jurusan')");
+
+    if (mysqli_affected_rows($conn) > 0) {
         echo "<script>
                 alert('Jurusan berhasil ditambahkan!');
                 document.location.href = 'jurusan.php';
               </script>";
     } else {
         echo "<script>
-                alert('Jurusan gagal ditambahkan!');
+                alert('Gagal menambahkan jurusan!');
+                document.location.href = 'tambah_jurusan.php';
               </script>";
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +72,7 @@ if (isset($_POST["submit"])) {
 
                 <div class="mb-3">
                     <label class="form-label">Nama Jurusan</label>
-                    <input type="text" name="nama_jurusan" class="form-control" required>
+                    <input type="text" name="nama_jurusan" class="form-control" required autocomplete="off">
                 </div>
 
                 <button type="submit" name="submit" class="btn btn-primary">Tambah</button>

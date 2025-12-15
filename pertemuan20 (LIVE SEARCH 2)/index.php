@@ -14,7 +14,18 @@ if (!isset($_SESSION["login"])) {
 
 require 'function.php';
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
+// query menggunakan JOIN agar nama jurusan muncul
+$query = "
+    SELECT mahasiswa.*, jurusan.nama_jurusan
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+    WHERE 
+        mahasiswa.nama LIKE '%$keyword%' OR
+        mahasiswa.nrp LIKE '%$keyword%' OR
+        mahasiswa.email LIKE '%$keyword%' OR
+        jurusan.nama_jurusan LIKE '%$keyword%'
+";
+$mahasiswa = query($query);
 
 // tombol cari ditekan  
 if (isset($_POST["cari"])) {
@@ -73,28 +84,30 @@ if (isset($_POST["cari"])) {
 
             <tr>
                 <th>No.</th>
-                <th>Aksi</th>
+                
                 <th>Gambar</th>
                 <th>NRP</th>
                 <th>Nama</th>
                 <th>Email</th>
                 <th>Jurusan</th>
+                <th>Aksi</th>
             </tr>
 
             <?php $i = 1; ?>
             <?php foreach ($mahasiswa as $row) : ?>
                 <tr>
                     <td><?= $i; ?></td>
-                    <td>
-                        <a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a> |
-                        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');">hapus</a>
-                    </td>
+                    
                     <td><img src="img/<?php echo $row["gambar"]; ?>"
                             width="50"></td>
                     <td><?= $row["nrp"]; ?></td>
                     <td><?= $row["nama"]; ?></td>
                     <td><?= $row["email"]; ?></td>
-                    <td><?= $row["jurusan_id"]; ?></td>
+                    <td><?= $row["nama_jurusan"]; ?></td>
+                    <td>
+                        <a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a> |
+                        <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin?');">hapus</a>
+                    </td>
                 </tr>
                 <?php $i++; ?>
             <?php endforeach; ?>

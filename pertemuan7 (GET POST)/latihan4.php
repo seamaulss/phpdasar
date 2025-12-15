@@ -1,12 +1,33 @@
+<!-- GET Method: mengambil data dari URL secara aman.
 
-<!-- GET (mengambil data lewat URL) dan menampilkan data secara dinamis di halaman.
-Ini berbeda dengan latihan3 yang pakai POST dan form. -->
+Operator Null Coalescing (??): memberi nilai default jika data tidak ada.
+
+Keamanan output: belajar cara menampilkan data user tanpa risiko XSS. -->
+
+
+<?php 
+
+    $nama = $_GET["nama"] ?? null;
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Document</title>
+    <style>
+
+        .contain {
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Selamat Datang, <?= $_GET["nama"]; ?></h1>
+        <div class="contain">
+
+            <h1>Selamat Datang, <?= htmlspecialchars($nama) ?></h1>
+
+        </div>
 </body>
 </html>

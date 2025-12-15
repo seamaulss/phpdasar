@@ -15,7 +15,11 @@ if( !isset($_SESSION["login"]) ) {
 
 require 'function.php';
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
+$mahasiswa = query("
+    SELECT mahasiswa.*, jurusan.nama_jurusan 
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+");                     
 
 // tombol cari ditekan  
 if( isset($_POST["cari"]) ) {
@@ -72,7 +76,7 @@ if( isset($_POST["cari"]) ) {
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan_id"]; ?></td>
+        <td><?= $row["nama_jurusan"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

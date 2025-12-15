@@ -44,6 +44,7 @@ if (isset($_POST["submit"])) {
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body class="bg-light">
@@ -70,17 +71,39 @@ if (isset($_POST["submit"])) {
                         <input type="email" class="form-control" name="email" id="email" autocomplete="off" required>
                     </div>
 
+                    <!-- Dropdown Bootstrap 5 Scrollable -->
                     <div class="mb-3">
-                        <label for="jurusan" class="form-label">Jurusan</label>
-                        <select name="jurusan_id" id="jurusan" class="form-select" required>
-                            <option value="">-- Pilih Jurusan --</option>
-                            <?php foreach ($jurusanList as $j) : ?>
-                                <option value="<?= $j['id']; ?>">
-                                    <?= $j['nama_jurusan']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <label for="jurusan" class="form-label d-block">Jurusan</label>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle w-100" type="button" id="dropdownJurusan" data-bs-toggle="dropdown" aria-expanded="false">
+                                -- Pilih Jurusan --
+                            </button>
+                            <ul class="dropdown-menu w-100" style="max-height: 200px; overflow-y: auto;" aria-labelledby="dropdownJurusan">
+                                <?php foreach ($jurusanList as $j) : ?>
+                                    <li>
+                                        <a class="dropdown-item jurusan-item" href="#" data-id="<?= $j['id']; ?>"><?= $j['nama_jurusan']; ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <input type="hidden" name="jurusan_id" id="jurusan_id">
+                        </div>
                     </div>
+
+                    <!-- Script untuk memilih opsi -->
+                    <script>
+                        const dropdownItems = document.querySelectorAll('.jurusan-item');
+                        const dropdownButton = document.getElementById('dropdownJurusan');
+                        const jurusanInput = document.getElementById('jurusan_id');
+
+                        dropdownItems.forEach(item => {
+                            item.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                dropdownButton.textContent = this.textContent; // ubah teks tombol
+                                jurusanInput.value = this.dataset.id; // simpan id ke input hidden
+                            });
+                        });
+                    </script>
+
 
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar :</label>

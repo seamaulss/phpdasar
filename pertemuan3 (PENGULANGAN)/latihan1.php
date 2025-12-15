@@ -1,10 +1,13 @@
 <?php
 
-    // Belajar pengulangan seperti
-    // for
-    // while
-    // do... while
+    // Belajar pengulangan/Looping seperti
+    // for : perulangan dengan jumlah yang pasti atau terukur.
+    // while : digunakan untuk perulangan selama kondisi bernilai true.
+    // do... while : digunakan untuk perulangan minimal satu kali, karena kondisi dicek setelah kode dijalankan.
     // foreach : pengulangan khusus array
+    // if else : menjalankan kode tertentu jika kondisi terpenuhi.
+    // else if : untuk banyak kondisi
+    // Switch Case: Mirip if, tapi lebih rapi untuk memeriksa banyak nilai tertentu.
 
     // for ( $i = 0; $i < 5; $i++ ) {
     //  echo "Hello World! <br>";

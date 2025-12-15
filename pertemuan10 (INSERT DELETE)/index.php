@@ -8,7 +8,11 @@ Menghapus data (Delete) -->
 <?php 
 require 'function.php';
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
+$mahasiswa = query("
+    SELECT mahasiswa.*, jurusan.nama_jurusan 
+    FROM mahasiswa
+    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+");
 
 ?>
 
@@ -50,7 +54,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
         <td><?= $row["nrp"]; ?></td>
         <td><?= $row["nama"]; ?></td>
         <td><?= $row["email"]; ?></td>
-        <td><?= $row["jurusan_id"]; ?></td>
+        <td><?= $row["nama_jurusan"]; ?></td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

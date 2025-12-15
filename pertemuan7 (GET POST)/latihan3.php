@@ -12,6 +12,16 @@ Mengecek apakah tombol submit sudah ditekan dengan isset($_POST["submit"]).
 
 Jika ya, tampilkan pesan selamat datang. -->
 
+<?php 
+if (isset($_POST["nama"])) {
+
+    $nama = urldecode($_POST["nama"]);
+    header('Location: latihan4.php?nama=$nama');
+    
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +33,7 @@ Jika ya, tampilkan pesan selamat datang. -->
         <h1>Halo, Selamat Datang <?= $_POST["nama"]; ?></h1>
     <?php endif; ?>
 
-    <form action="" method="post">
+    <form action="latihan4.php" method="get">
         Masukkan Nama: 
         <input type="text" name="nama">
         </br>

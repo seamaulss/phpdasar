@@ -72,7 +72,7 @@ if (isset($_POST["submit"])) {
                 <div class="card-body">
                     <form action="" method="post">
 
-                        <input type="hidden" name="id" value="<?= $jurusan['id']; ?>">
+                        <input type="hidden" name="id" value="<?= $jurusan['id']; ?>" required autocomplete="off">
 
                         <div class="mb-3">
                             <label class="form-label">Nama Jurusan</label>

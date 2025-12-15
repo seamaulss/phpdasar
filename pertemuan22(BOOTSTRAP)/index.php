@@ -169,7 +169,7 @@ if (isset($_POST["cari"])) {
                 <?php foreach ($mahasiswa as $row) : ?>
                     <tr>
                         <td><?= $i++; ?></td>
-                        <td><img src="img/<?= $row["gambar"]; ?>" width="50" class="img-thumbnail"></td>
+                        <td><img src="img/<?= $row["gambar"]; ?>" width="100" class="img-thumbnail"></td>
                         <td><?= $row["nrp"]; ?></td>
                         <td><?= $row["nama"]; ?></td>
                         <td><?= $row["email"]; ?></td>

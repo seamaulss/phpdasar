@@ -20,7 +20,7 @@
             transition: 1s;
         }
         .kotak:hover {
-            transform: rotate(180deg);
+            transform: rotate(360deg);
             border-radius: 100%;
         }
     </style>
@@ -31,7 +31,7 @@
         $angka = [
         [1,2,3], 
         [4,5,6],
-        [9,8,9]
+        [7,8,9]
         ];
     ?>
 

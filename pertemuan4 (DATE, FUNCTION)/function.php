@@ -1,3 +1,7 @@
+<!-- Default parameter (jika tidak diisi tetap ada nilai)
+Return value
+Cara memanggil function menggunakan short tag php -->
+
 <?php
 
     function salam ($waktu = "Datang", $nama = "Arkan") {
