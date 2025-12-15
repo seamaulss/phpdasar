@@ -9,25 +9,62 @@ Ada tombol aksi untuk ubah/hapus data mahasiswa.
 Tabel menggunakan Bootstrap agar responsive dan rapi. -->
 
 <?php
+session_start();
 
-usleep(500000); // delay 0.5 detik
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
 
 require '../function.php';
-$keyword = isset($_GET["keyword"]) ? $_GET["keyword"] : "";
 
-// query menggunakan JOIN agar nama jurusan muncul
-$query = "
-    SELECT mahasiswa.*, jurusan.nama_jurusan
-    FROM mahasiswa
-    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
-    WHERE 
-        mahasiswa.nama LIKE '%$keyword%' OR
-        mahasiswa.nrp LIKE '%$keyword%' OR
-        mahasiswa.email LIKE '%$keyword%' OR
-        jurusan.nama_jurusan LIKE '%$keyword%'
-";
-$mahasiswa = query($query);
+// TOMBOL CARI DAN KEYWORD
+$keyword = $_GET["keyword"] ?? ""; // ambil dari GET agar pagination bisa ikut keyword
 
+// PAGINATION CONFIG
+$jumlahDataPerHalaman = 5;
+
+// HITUNG TOTAL DATA SESUAI KEYWORD
+if ($keyword) {
+    $jumlahData = count(query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        WHERE 
+            mahasiswa.nama LIKE '%$keyword%' OR
+            mahasiswa.nrp LIKE '%$keyword%' OR
+            mahasiswa.email LIKE '%$keyword%' OR
+            jurusan.nama_jurusan LIKE '%$keyword%'
+    "));
+} else {
+    $jumlahData = count(query("SELECT * FROM mahasiswa"));
+}
+
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+$halamanAktif = isset($_GET["halaman"]) ? intval($_GET["halaman"]) : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+// AMBIL DATA SESUAI HALAMAN DAN KEYWORD
+if ($keyword) {
+    $mahasiswa = query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        WHERE 
+            mahasiswa.nama LIKE '%$keyword%' OR
+            mahasiswa.nrp LIKE '%$keyword%' OR
+            mahasiswa.email LIKE '%$keyword%' OR
+            jurusan.nama_jurusan LIKE '%$keyword%'
+        LIMIT $awalData, $jumlahDataPerHalaman
+    ");
+} else {
+    $mahasiswa = query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        LIMIT $awalData, $jumlahDataPerHalaman
+    ");
+}
 ?>
 
 <div class="table-responsive">
@@ -81,4 +118,19 @@ $mahasiswa = query($query);
         </tbody>
 
     </table>
+
+    <div class="pagination mt-2">
+        <?php if ($halamanAktif > 1): ?>
+            <a href="?halaman=<?= $halamanAktif - 1 ?>&keyword=<?= urlencode($keyword) ?>">&laquo; Prev</a>
+        <?php endif; ?>
+
+        <?php for ($h = 1; $h <= $jumlahHalaman; $h++): ?>
+            <a href="?halaman=<?= $h ?>&keyword=<?= urlencode($keyword) ?>" class="<?= ($h == $halamanAktif) ? 'active' : '' ?>"><?= $h ?></a>
+        <?php endfor; ?>
+
+        <?php if ($halamanAktif < $jumlahHalaman): ?>
+            <a href="?halaman=<?= $halamanAktif + 1 ?>&keyword=<?= urlencode($keyword) ?>">Next &raquo;</a>
+        <?php endif; ?>
+    </div>
+
 </div>

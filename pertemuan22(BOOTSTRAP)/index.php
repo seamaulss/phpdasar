@@ -18,17 +18,33 @@ if (!isset($_SESSION["login"])) {
 
 require 'function.php';
 
-// AMBIL DATA MAHASISWA + NAMA JURUSAN
-$mahasiswa = query("
-    SELECT mahasiswa.*, jurusan.nama_jurusan 
-    FROM mahasiswa
-    LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
-");
+// TOMBOL CARI DAN KEYWORD
+$keyword = $_GET["keyword"] ?? "";
 
-// tombol cari ditekan  
-$keyword = $_POST["keyword"] ?? "";  // aman, tidak muncul warning
+$jumlahDataPerHalaman = 5;
 
-if (isset($_POST["cari"])) {
+// HITUNG TOTAL DATA SESUAI KEYWORD
+if ($keyword) {
+    $jumlahData = count(query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        WHERE 
+            mahasiswa.nama LIKE '%$keyword%' OR
+            mahasiswa.nrp LIKE '%$keyword%' OR
+            mahasiswa.email LIKE '%$keyword%' OR
+            jurusan.nama_jurusan LIKE '%$keyword%'
+    "));
+} else {
+    $jumlahData = count(query("SELECT * FROM mahasiswa"));
+}
+
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+$halamanAktif = isset($_GET["halaman"]) ? intval($_GET["halaman"]) : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+// AMBIL DATA SESUAI HALAMAN DAN KEYWORD
+if ($keyword) {
     $mahasiswa = query("
         SELECT mahasiswa.*, jurusan.nama_jurusan 
         FROM mahasiswa
@@ -38,10 +54,16 @@ if (isset($_POST["cari"])) {
             mahasiswa.nrp LIKE '%$keyword%' OR
             mahasiswa.email LIKE '%$keyword%' OR
             jurusan.nama_jurusan LIKE '%$keyword%'
+        LIMIT $awalData, $jumlahDataPerHalaman
+    ");
+} else {
+    $mahasiswa = query("
+        SELECT mahasiswa.*, jurusan.nama_jurusan 
+        FROM mahasiswa
+        LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+        LIMIT $awalData, $jumlahDataPerHalaman
     ");
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +73,20 @@ if (isset($_POST["cari"])) {
     <title>Halaman Admin</title>
 
     <style>
+        .pagination a {
+            padding: 5px 10px;
+            margin: 2px;
+            border: 1px solid #0d6efd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #0d6efd;
+        }
+
+        .pagination a.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+
         .sidebar {
             width: 230px;
             height: 100vh;
@@ -126,7 +162,7 @@ if (isset($_POST["cari"])) {
         <div class="position-relative" style="max-width: 400px;">
 
             <!-- FORM -->
-            <form action="" method="POST"
+            <form action="" method="GET"
                 class="d-flex mt-2 search flex-grow-0">
 
                 <input class="form-control me-2 w-100"
@@ -165,7 +201,7 @@ if (isset($_POST["cari"])) {
                     <th class="aksi">Aksi</th>
                 </tr>
 
-                <?php $i = 1; ?>
+                <?php $i = $awalData + 1; ?>
                 <?php foreach ($mahasiswa as $row) : ?>
                     <tr>
                         <td><?= $i++; ?></td>
@@ -182,6 +218,21 @@ if (isset($_POST["cari"])) {
                 <?php endforeach; ?>
 
             </table>
+            <!-- PAGINATION -->
+            <div class="pagination mt-2">
+                <?php if ($halamanAktif > 1): ?>
+                    <a href="?halaman=<?= $halamanAktif - 1 ?>&keyword=<?= urlencode($keyword) ?>">&laquo; Prev</a>
+                <?php endif; ?>
+
+                <?php for ($h = 1; $h <= $jumlahHalaman; $h++): ?>
+                    <a href="?halaman=<?= $h ?>&keyword=<?= urlencode($keyword) ?>" class="<?= ($h == $halamanAktif) ? 'active' : '' ?>"><?= $h ?></a>
+                <?php endfor; ?>
+
+                <?php if ($halamanAktif < $jumlahHalaman): ?>
+                    <a href="?halaman=<?= $halamanAktif + 1 ?>&keyword=<?= urlencode($keyword) ?>">Next &raquo;</a>
+                <?php endif; ?>
+            </div>
+
         </div>
 
     </div>

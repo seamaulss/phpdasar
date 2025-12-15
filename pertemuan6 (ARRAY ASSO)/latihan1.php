@@ -1,4 +1,4 @@
-<!-- array multidimensi -->
+ <!-- array multidimensi -->
  <!-- Membuat array 2 dimensi -->
  <!-- Nested foreach (foreach di dalam foreach) -->
  <!-- Mengulang elemen untuk ditampilkan dalam HTML -->

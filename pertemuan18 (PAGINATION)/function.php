@@ -23,15 +23,16 @@ function query($query)
 }
 
 // cari data mahasiswa berdasarkan keyword
-function cari($keyword, $awalData, $jumlahDataPerHalaman)
+function cari($keyword)
 {
-    $query = "SELECT * FROM mahasiswa
-                WHERE
-            nama LIKE '%$keyword%' OR
-            nrp LIKE '%$keyword%' OR
-            email LIKE '%$keyword%' OR
-            jurusan LIKE '%$keyword%'
-            LIMIT $awalData, $jumlahDataPerHalaman";
+    $query = "SELECT mahasiswa.*, jurusan.nama_jurusan
+              FROM mahasiswa
+              LEFT JOIN jurusan ON mahasiswa.jurusan_id = jurusan.id
+              WHERE 
+                    mahasiswa.nama LIKE '%$keyword%' OR
+                    mahasiswa.nrp LIKE '%$keyword%' OR
+                    mahasiswa.email LIKE '%$keyword%' OR
+                    jurusan.nama_jurusan LIKE '%$keyword%'";
 
     return query($query);
 }

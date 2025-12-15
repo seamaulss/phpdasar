@@ -17,6 +17,6 @@ Cara memanggil function menggunakan short tag php -->
     <title>Latihan Function</title>
 </head>
 <body>
-    <h1><?=  salam("Pagi", "Maul"); ?></h1>
+    <h1><?=  salam("Maul"); ?></h1>
 </body>
 </html>
